@@ -1,7 +1,6 @@
 import React from 'react'
 import './App.css';
-import './reset.css' 
-import { observer } from 'mobx-react';
+import './reset.css'  
 import { Link, Route, Switch } from "react-router-dom";
 import Checkout from './Checkout/Checkout';
 import Registration from './Login/Registration';
@@ -51,4 +50,4 @@ function App() {
   )
 }
 
-export default (observer(App));
+export default  App 
