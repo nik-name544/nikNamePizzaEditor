@@ -18,6 +18,9 @@ function  Login() {
         resolver: yupResolver(schema),
         mode: "onBlur"
     })
+    
+    const Registered = useSelector(state => state.Registered)
+    const dispatch = useDispatch();
      const auth = () => {
         if(Registered.registered){
             return "/login"
