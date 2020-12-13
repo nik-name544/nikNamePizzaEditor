@@ -42,6 +42,15 @@ export const addressReducer = (state = { address: [] }, action) => {
     }
 }
 
+export const registeredReducer = (state = {registered: false}, action)=> { 
+    switch (action.type) {
+        case "log_in":
+            return { registered: action.payload };
+        default:
+            return state;
+    }
+}
+
 export const FinalTotalRedux = ({ dough, size, sauce, cheese, vegetables, meat }) => {
     let pizzaData = PizzaDataStore()[0] 
     const doughPrice = pizzaData.dough[dough].price; 
@@ -69,7 +78,8 @@ const rootReducer = combineReducers({
     PizzaName:pizzaNameReducer,
     CardNum: cardNumReducer,
     Address:addressReducer,
-    FinalTotal:finalTotalReducer
+    FinalTotal:finalTotalReducer,
+    Registered: registeredReducer
 });
 
  
