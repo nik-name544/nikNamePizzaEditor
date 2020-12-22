@@ -1,11 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { observer } from 'mobx-react';
-import PizzaStore from '../PizzaEditor/store/PizzaStore'
+import { Link } from 'react-router-dom' 
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-
+import { useDispatch } from "react-redux";
+import { store } from '../PizzaEditor/store/PizzaStoreRedux'
 
 
 
@@ -46,6 +45,19 @@ const schema = yup.object().shape({
     name: yup.string().required("Введите имя как на карте"),
 });
 
+const some = (data) => { 
+    return fetch(`http://localhost:4000/orders`,
+        {
+            method: "POST",
+            body: JSON.stringify({ "name": data[3], "ingredients": data[2], "address": data[1], "card_number": data[0] }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+
+            }, 
+        })
+        .then((res) => res.json()) 
+}
+
 
 function PaymentForm() {
     const { register, handleSubmit, errors, watch } = useForm({
@@ -53,15 +65,21 @@ function PaymentForm() {
         mode: "onBlur"
     })
     const values = watch()
-
+    const dispatch = useDispatch(); 
+    const PizzaName = store.getState().toppings 
     let fullAddress = { address: values.address, entrance: values.entrance, floor: values.floor, apartment: values.apartment }
-
-    const onSubmit = (data) => {
-        PizzaStore.cardNum = [...PizzaStore.cardNum, values.cardNumber]
-        PizzaStore.address = fullAddress
+    let cardnum = values.cardNumber
+    let serwaddress = values.address
+    const FinalTotal = store.getState().total
+    const onSubmit = (data) => { 
+        dispatch({ type: "pizza/cardNum", payload: values.cardNumber })
+        dispatch({ type: "pizza/address", payload: fullAddress })
+        dispatch({ type: "pizza/orderList", payload: [cardnum, serwaddress, PizzaName, "PizzaName"] })
+        some(store.getState().orderList)
     }
 
-    const name = PizzaStore.toppings
+ 
+    const name = PizzaName
     let pizzaItem = name.map((item, i) => {
         return (
             <div key={i} className="order-list__ing">
@@ -83,7 +101,7 @@ function PaymentForm() {
                     <div className="payment-form__pizza-inner">
                         <p className="payment-form__pizza-title">Ленивая Маргарита</p>
                         <div className="payment-form__pizza-text">{pizzaItem}</div>
-                        <p className="payment-form__pizza-price">{PizzaStore.FinalTotal} руб</p>
+                        <p className="payment-form__pizza-price">{FinalTotal} руб</p> 
                     </div>
                 </div>
             </section>
@@ -185,7 +203,7 @@ function PaymentForm() {
                     <div className="footer-top">
                         <div className="footer-top__text-inner">
                             <p className="footer-top__text">Стоимость заказа</p>
-                            <p className="footer-top__price">{PizzaStore.FinalTotal} руб</p>
+                            <p className="footer-top__price">{FinalTotal} руб</p>
                         </div>
                         <div className="footer-top__text-inner">
                             <p className="footer-top__text">Доставка</p>
@@ -195,10 +213,10 @@ function PaymentForm() {
                     <div className="footer-bot">
                         <div className="footer-bot__text-inner">
                             <p className="footer-bot__text">К оплате</p>
-                            <p className="footer-bot__price">{PizzaStore.FinalTotal + 180} руб</p>
+                            <p className="footer-bot__price">{FinalTotal + 180} руб</p>
                         </div>
                         <div className="footer-bot__btn-inner active">
-                            <Link to="/registration" className="footer-bot__btn active" onClick={onSubmit}>Оплатить {PizzaStore.FinalTotal + 180} руб</Link>
+                            <Link to="/registration" className="footer-bot__btn active" onClick={onSubmit}>Оплатить {FinalTotal + 180} руб</Link>
                         </div>
                     </div>
                 </div>
@@ -206,4 +224,4 @@ function PaymentForm() {
         </div>
     )
 }
-export default (observer(PaymentForm));
+export default  PaymentForm 

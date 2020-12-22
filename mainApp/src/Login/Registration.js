@@ -1,10 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { observer } from 'mobx-react';
-import PizzaStore from '../PizzaEditor/store/PizzaStore'
+import { Link } from 'react-router-dom' 
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useSelector, useDispatch } from 'react-redux';
 
 const schema = yup.object().shape({
     password: yup.string().required("Введите Пароль"),
@@ -19,11 +18,13 @@ function Registration() {
         resolver: yupResolver(schema),
         mode: "onBlur"
     })
+    const Registered = useSelector(state => state.Registered)
+    const dispatch = useDispatch();
 
-    const onSubmit = (data) => {
-        console.log(data)
-    };
-
+    const onSubmit = (data) => { 
+        dispatch({ type: "pizza/registered", payload: true })
+    }; 
+ 
     return (
         <div className="auth-form">
             <header className="payment-form__header">
@@ -52,7 +53,7 @@ function Registration() {
                             <span className="auth-form__wrong wrong">Неправильный пароль</span>
                         </label>
                         <div className="auth-form__btn-inner active">
-                            <Link to="/pizza-editor-login" className="auth-form__btn  active">Зарегестрироваться</Link>
+                            <Link to="/checkout" className="auth-form__btn  active">Зарегестрироваться</Link>
                         </div>
                     </form>
                 </div>
@@ -60,4 +61,4 @@ function Registration() {
         </div>
     )
 }
-export default (observer(Registration));
+export default  Registration 
