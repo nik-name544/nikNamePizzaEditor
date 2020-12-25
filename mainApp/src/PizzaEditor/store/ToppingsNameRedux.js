@@ -1,8 +1,10 @@
-import React from 'react' 
+ 
 
-export const ToppingsNameRedux = ({ values, PizzaData, PizzaName, dispatch }) => {
+
+export const ToppingsNameRedux = ({ values, PizzaServData, PizzaName, dispatch }) => {
     const newToppingRedux = []
-    let pizzaDataRedux = PizzaData[0]
+    let pizzaDataRedux = PizzaServData
+ 
     const doughNameRedux = pizzaDataRedux.dough[values.dough].name
     const sizeNameRedux = pizzaDataRedux.size[values.size].name;
     const sauceNameRedux = pizzaDataRedux.sauce[values.sauce].name;
@@ -14,8 +16,9 @@ export const ToppingsNameRedux = ({ values, PizzaData, PizzaName, dispatch }) =>
     })
     const meatNameRedux = values.meat.map((name, i) => {
         return pizzaDataRedux.meat[name].name
-    })
-    newToppingRedux.push([doughNameRedux], [sizeNameRedux], [sauceNameRedux], ...cheeseNameRedux, ...vegetablesNameRedux, ...meatNameRedux)
+    }) 
+    newToppingRedux.push(doughNameRedux, sizeNameRedux, sauceNameRedux, ...cheeseNameRedux, ...vegetablesNameRedux, ...meatNameRedux)
     PizzaName = [...newToppingRedux]
-    dispatch({ type: "set_name", payload: PizzaName }) 
-} 
+    dispatch({ type: "pizza/pizzaName", payload: PizzaName })
+}
+ 

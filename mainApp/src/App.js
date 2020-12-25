@@ -9,12 +9,13 @@ import OrderList from './OrderList/OrderList';
 import PaymentForm from './PaymentForm/PaymentForm';
 import PizzaEditorForm from './PizzaEditor/PizzaEditorForm'
 import './PizzaEditorStyle.css' 
+
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   const Registered = useSelector(state => state.Registered);
   const auth = () => {
-    if (Registered.registered) {
+    if (Registered.registered) { 
       return "/order-list"
     } else {
       return "/login"

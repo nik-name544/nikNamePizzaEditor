@@ -1,89 +1,162 @@
-import { createStore, combineReducers  } from "redux";
-import React from 'react'
+ 
+import { configureStore, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+ 
 
-export const pizzaDataReducer = (state = PizzaDataStore() ) => {
-    return state;
-}
+const setQuote = (data) => {
+    const data2 = []
+    const data1 = [...data]
+    const dataS = [{
+        dough: {
+            'thin': {},
+            'fluffy': {}
+        },
+        size: {
+            'small': {},
+            'big': {},
+        },
+        sauce: {
+            'tomatoSauce': {},
+            'whiteSauce': {},
+            'spicySauce': {},
+        },
+        cheese: {
+            'mozzarella': {},
+            'cheddar': {},
+            'dorBlue': {}
+        },
+        vegetables: {
+            'tomato': {},
+            'mushrooms': {},
+            'pepper': {},
+        },
+        meat: {
+            'bacon': {},
+            'pepperoni': {},
+            'ham': {},
+        }
+    }]
+    const newNewData = dataS;
+    function toppings(itemNew) {
 
-export const pizzaNameReducer = (state = { toppings: [] }, action) => { 
-    switch (action.type) {
-        case "set_name":
-            return { toppings: action.payload };
-        default:
-            return state;
+        if (itemNew.category === "dough") {
+            const name = itemNew.name
+            const price = itemNew.price
+            newNewData[0].dough[name] = ({ name, price })
+        } else if (itemNew.category === "size") {
+            const name = itemNew.name
+            const price = itemNew.price
+            newNewData[0].size[name] = ({ name, price })
+        }
+        else if (itemNew.category === "sauce") {
+            const name = itemNew.name
+            const price = itemNew.price
+            newNewData[0].sauce[name] = ({ name, price })
+
+        } else if (itemNew.category === "cheese") {
+            const name = itemNew.name
+            const price = itemNew.price
+            newNewData[0].cheese[name] = ({ name, price })
+
+        } else if (itemNew.category === "vegetables") {
+            const name = itemNew.name
+            const price = itemNew.price
+            newNewData[0].vegetables[name] = ({ name, price })
+        } else if (itemNew.category === "meat") {
+            const name = itemNew.name
+            const price = itemNew.price
+            newNewData[0].meat[name] = ({ name, price })
+
+        }
     }
+
+    let newData = data1.map((item, i) => {
+        const itemNew = item
+        toppings(itemNew)
+    })
+
+    data2.push(...newNewData)
+    return data2
 }
 
-export const finalTotalReducer = (state = { total: 200 }, action) => { 
-    switch (action.type) {
-        case "total":
-            return { total: action.payload };
-        default:
-            return state;
+export const fetchdata = createAsyncThunk("pizza/fetchdata", async () => {
+    const result = await fetch(`http://localhost:4000/ingredients`)
+        .then((res) => res.json())
+        .then((data) => setQuote(data))
+    return result
+});
+
+const initialState = {
+    toppings: [],
+    address: [],
+    cardnum: "",
+    total: 200,
+    registered: false,
+    pizzaServData: [],
+    orderList: []
+};
+
+const pizzaLogic = createSlice({
+    name: "pizza",
+    initialState,
+    reducers: {
+        pizzaName: (state, action) => {
+            state.toppings = action.payload
+        },
+        finalTotal: (state, action) => {
+            state.total = action.payload
+        },
+        cardNum: (state, action) => {
+            state.cardnum = action.payload
+        },
+        address: (state, action) => {
+            state.address = action.payload
+        },
+        registered: (state, action) => {
+            state.registered = action.payload
+        },
+        orderList: (state, action) => {
+            state.orderList = action.payload
+        },
+    },
+    extraReducers: {
+        [fetchdata.fulfilled]: (state, action) => {
+            state.pizzaServData = action.payload;
+        }
     }
-}
+})
 
-
-export const cardNumReducer = (state = { cardnum: "" }, action) => {
-    switch (action.type) {
-        case "set_card":
-            return { username: action.payload };
-        default:
-            return state;
-    }
-}
-
-export const addressReducer = (state = { address: [] }, action) => { 
-    switch (action.type) {
-        case "set_address":
-            return { toppings: action.payload };
-        default:
-            return state;
-    }
-}
-
-export const registeredReducer = (state = {registered: false}, action)=> { 
-    switch (action.type) {
-        case "log_in":
-            return { registered: action.payload };
-        default:
-            return state;
-    }
-}
-
-export const FinalTotalRedux = ({ dough, size, sauce, cheese, vegetables, meat }) => {
-    let pizzaData = PizzaDataStore()[0] 
-    const doughPrice = pizzaData.dough[dough].price; 
-    const sizePrice = pizzaData.size[size].price; 
-    const saucePrice = pizzaData.sauce[sauce].price; 
-    const cheesePrice = cheese.reduce(
-        (price, cheese) => price + pizzaData.cheese[cheese].price,
+export const FinalTotalRedux = (values, PizzaServData) => { 
+    let pizzaData = PizzaServData || PizzaDataStore()[0] 
+    const doughPrice = Number(pizzaData.dough[values.dough].price);
+    const sizePrice = Number(pizzaData.size[values.size].price);
+    const saucePrice = Number(pizzaData.sauce[values.sauce].price);
+    const cheesePrice = values.cheese.reduce(
+        (price, cheese) => price + Number(pizzaData.cheese[cheese].price),
+        0
+    );
+    const vegetablesPrice = values.vegetables.reduce(
+        (price, vegetables) => price + Number(pizzaData.vegetables[vegetables].price),
+        0
+    );
+    const meatPrice = values.meat.reduce(
+        (price, meat) => price + Number(pizzaData.meat[meat].price),
         0
     ); 
-    const vegetablesPrice = vegetables.reduce(
-        (price, vegetables) => price + pizzaData.vegetables[vegetables].price,
-        0
-    ); 
-    const meatPrice = meat.reduce(
-        (price, meat) => price + pizzaData.meat[meat].price,
-        0
-    ); 
+
+ 
+ 
     return doughPrice + sizePrice + saucePrice + cheesePrice + vegetablesPrice + meatPrice + 200;
 }
 
 
+ 
+export const store = configureStore({ reducer: pizzaLogic.reducer });
+ 
+store.dispatch(fetchdata());
 
-const rootReducer = combineReducers({
-    PizzaData: pizzaDataReducer,
-    PizzaName:pizzaNameReducer,
-    CardNum: cardNumReducer,
-    Address:addressReducer,
-    FinalTotal:finalTotalReducer,
-    Registered: registeredReducer
-});
 
  
-export const store = createStore(rootReducer);
+  
 
 store.subscribe(() => console.log(store.getState()));
 
@@ -93,7 +166,7 @@ store.subscribe(() => console.log(store.getState()));
 
 
 
-function PizzaDataStore() {
+function PizzaDataStore() { 
     return [
         {
             dough: {

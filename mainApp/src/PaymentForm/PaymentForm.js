@@ -2,8 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom' 
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from "react-redux";
+import { yupResolver } from '@hookform/resolvers/yup'; 
+import { store } from '../PizzaEditor/store/PizzaStoreRedux' 
+import { useDispatch, useSelector } from "react-redux"; 
 
 
 
@@ -44,26 +45,41 @@ const schema = yup.object().shape({
     name: yup.string().required("Введите имя как на карте"),
 });
 
+const some = (data) => { 
+    return fetch(`http://localhost:4000/orders`,
+        {
+            method: "POST",
+            body: JSON.stringify({ "name": data[3], "ingredients": data[2], "address": data[1], "card_number": data[0] }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+
+            }, 
+        })
+        .then((res) => res.json()) 
+}
+
 
 function PaymentForm() {
     const { register, handleSubmit, errors, watch } = useForm({
         resolver: yupResolver(schema),
         mode: "onBlur"
     })
-    const values = watch()
-
-    const dispatch = useDispatch();
-    const CardNum = useSelector(state => state.CardNum);
-    const PizzaName = useSelector(state => state.PizzaName);
-    const FinalTotal = useSelector(state => state.FinalTotal);
+    const values = watch() 
+    const dispatch = useDispatch(); 
+    const PizzaName = store.getState().toppings 
     let fullAddress = { address: values.address, entrance: values.entrance, floor: values.floor, apartment: values.apartment }
-  
+    let cardnum = values.cardNumber
+    let serwaddress = values.address
+    const FinalTotal = store.getState().total
     const onSubmit = (data) => { 
-        dispatch({ type: "set_card", payload: values.cardNumber })
-        dispatch({ type: "set_address", payload: fullAddress })
+        dispatch({ type: "pizza/cardNum", payload: values.cardNumber })
+        dispatch({ type: "pizza/address", payload: fullAddress })
+        dispatch({ type: "pizza/orderList", payload: [cardnum, serwaddress, PizzaName, "PizzaName"] })
+        some(store.getState().orderList)
     }
+
  
-    const name = PizzaName.toppings
+    const name = PizzaName 
     let pizzaItem = name.map((item, i) => {
         return (
             <div key={i} className="order-list__ing">
@@ -84,8 +100,8 @@ function PaymentForm() {
                 <div className="container">
                     <div className="payment-form__pizza-inner">
                         <p className="payment-form__pizza-title">Ленивая Маргарита</p>
-                        <div className="payment-form__pizza-text">{pizzaItem}</div>
-                        <p className="payment-form__pizza-price">{FinalTotal.total } руб</p> 
+                        <div className="payment-form__pizza-text">{pizzaItem}</div> 
+                        <p className="payment-form__pizza-price">{FinalTotal} руб</p>  
                     </div>
                 </div>
             </section>
@@ -186,8 +202,8 @@ function PaymentForm() {
                 <div className="container">
                     <div className="footer-top">
                         <div className="footer-top__text-inner">
-                            <p className="footer-top__text">Стоимость заказа</p>
-                            <p className="footer-top__price">{FinalTotal.total} руб</p>
+                            <p className="footer-top__text">Стоимость заказа</p> 
+                            <p className="footer-top__price">{FinalTotal} руб</p> 
                         </div>
                         <div className="footer-top__text-inner">
                             <p className="footer-top__text">Доставка</p>
@@ -196,12 +212,12 @@ function PaymentForm() {
                     </div>
                     <div className="footer-bot">
                         <div className="footer-bot__text-inner">
-                            <p className="footer-bot__text">К оплате</p>
-                            <p className="footer-bot__price">{FinalTotal.total + 180} руб</p>
+                            <p className="footer-bot__text">К оплате</p> 
+                            <p className="footer-bot__price">{FinalTotal + 180} руб</p>
                         </div>
                         <div className="footer-bot__btn-inner active">
-                            <Link to="/registration" className="footer-bot__btn active" onClick={onSubmit}>Оплатить {FinalTotal.total + 180} руб</Link>
-                        </div>
+                            <Link to="/registration" className="footer-bot__btn active" onClick={onSubmit}>Оплатить {FinalTotal + 180} руб</Link>
+                         </div>
                     </div>
                 </div>
             </footer>
