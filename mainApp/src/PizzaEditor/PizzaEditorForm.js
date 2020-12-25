@@ -1,3 +1,4 @@
+ 
 import React  from 'react'
 import { useForm } from 'react-hook-form'; 
 import { Link } from "react-router-dom";
@@ -6,13 +7,13 @@ import { useDispatch } from "react-redux";
 import { FinalTotalRedux } from './store/PizzaStoreRedux';
 import { store } from './store/PizzaStoreRedux' 
 import { useQuery } from "react-query";
+  
+import { useDispatch, useSelector } from "react-redux";
+import { FinalTotalRedux } from './store/PizzaStoreRedux';
+
  
-const PizzaEditorForm = () => {
 
-    const { isLoading, isError, data, error } = useQuery(
-        "someId", () => fetch(`http://localhost:4000/ingredients`).then((res) => res.json())
-    ); 
-
+const PizzaEditorForm = () => {  
     const { register, handleSubmit, watch } = useForm({
         defaultValues: {
             size: 'small',
@@ -22,7 +23,7 @@ const PizzaEditorForm = () => {
             vegetables: [],
             meat: [],
         }
-    })
+    }) 
     const dispatch = useDispatch(); 
     let PizzaServData = store.getState().pizzaServData[0] 
     const PizzaName = store.getState().toppings 
@@ -34,7 +35,7 @@ const PizzaEditorForm = () => {
         ToppingsNameRedux({ values, PizzaServData, PizzaName, dispatch })
     } 
     if (isError) {
-        return <>Error: {JSON.stringify(error)}</>;
+        return <>Error: {JSON.stringify(error)}</>; 
     }
 
     if (isLoading) {
@@ -50,8 +51,8 @@ const PizzaEditorForm = () => {
                         type="radio"
                         value="thin"
                         name="dough"
-                    />
-                    {PizzaServData.dough.thin.name} 
+                    /> 
+                    {PizzaServData.dough.thin.name}  
                 </label>
                 <label>
                     <input
@@ -59,8 +60,8 @@ const PizzaEditorForm = () => {
                         type="radio"
                         value="fluffy"
                         name="dough"
-                    />
-                    {PizzaServData.dough.fluffy.name} 
+                    /> 
+                    {PizzaServData.dough.fluffy.name}  
                 </label>
             </fieldset>
             <fieldset>
@@ -71,7 +72,7 @@ const PizzaEditorForm = () => {
                         type="radio"
                         value="small"
                         name="size"
-                    />
+                    /> 
                     {PizzaServData.size.small.name} 
                 </label>
                 <label>
@@ -80,8 +81,8 @@ const PizzaEditorForm = () => {
                         type="radio"
                         value="big"
                         name="size"
-                    />
-                    {PizzaServData.size.big.name} 
+                    /> 
+                    {PizzaServData.size.big.name}  
                 </label>
 
             </fieldset>
@@ -95,8 +96,8 @@ const PizzaEditorForm = () => {
                         type="radio"
                         value="tomatoSauce"
                         name="sauce"
-                    />
-                    {PizzaServData.sauce.tomatoSauce.name} 
+                    /> 
+                    {PizzaServData.sauce.tomatoSauce.name}  
                 </label>
                 <label>
                     <input
@@ -104,7 +105,7 @@ const PizzaEditorForm = () => {
                         type="radio"
                         value="whiteSauce"
                         name="sauce"
-                    />
+                    /> 
                     {PizzaServData.sauce.whiteSauce.name} 
                 </label>
                 <label>
@@ -113,7 +114,7 @@ const PizzaEditorForm = () => {
                         type="radio"
                         value="spicySauce"
                         name="sauce"
-                    />
+                    /> 
                     {PizzaServData.sauce.spicySauce.name} 
                 </label>
 
@@ -127,7 +128,7 @@ const PizzaEditorForm = () => {
                         type="checkbox"
                         value="mozzarella"
                         name="cheese"
-                    />
+                    /> 
                     {PizzaServData.cheese.mozzarella.name} 
                 </label>
                 <label>
@@ -136,7 +137,7 @@ const PizzaEditorForm = () => {
                         type="checkbox"
                         value="cheddar"
                         name="cheese"
-                    />
+                    /> 
                     {PizzaServData.cheese.cheddar.name} 
                 </label>
                 <label>
@@ -145,8 +146,8 @@ const PizzaEditorForm = () => {
                         type="checkbox"
                         value="dorBlue"
                         name="cheese"
-                    />
-                    {PizzaServData.cheese.dorBlue.name} 
+                    /> 
+                    {PizzaServData.cheese.dorBlue.name}  
                 </label>
 
             </fieldset>
@@ -159,8 +160,8 @@ const PizzaEditorForm = () => {
                         type="checkbox"
                         value="tomato"
                         name="vegetables"
-                    />
-                    {PizzaServData.vegetables.tomato.name} 
+                    /> 
+                    {PizzaServData.vegetables.tomato.name}  
                 </label>
                 <label>
                     <input
@@ -168,8 +169,8 @@ const PizzaEditorForm = () => {
                         type="checkbox"
                         value="mushrooms"
                         name="vegetables"
-                    />
-                    {PizzaServData.vegetables.mushrooms.name} 
+                    /> 
+                    {PizzaServData.vegetables.mushrooms.name}  
                 </label>
                 <label>
                     <input
@@ -177,10 +178,9 @@ const PizzaEditorForm = () => {
                         type="checkbox"
                         value="pepper"
                         name="vegetables"
-                    />
-                    {PizzaServData.vegetables.pepper.name} 
-                </label>
-
+                    /> 
+                    {PizzaServData.vegetables.pepper.name}  
+                    </label>
             </fieldset>
 
             <fieldset>
@@ -191,7 +191,7 @@ const PizzaEditorForm = () => {
                         type="checkbox"
                         value="bacon"
                         name="meat"
-                    />
+                    /> 
                     {PizzaServData.meat.bacon.name} 
                 </label>
                 <label>
@@ -200,8 +200,8 @@ const PizzaEditorForm = () => {
                         type="checkbox"
                         value="pepperoni"
                         name="meat"
-                    />
-                    {PizzaServData.meat.pepperoni.name} 
+                    /> 
+                    {PizzaServData.meat.pepperoni.name}  
                 </label>
                 <label>
                     <input
@@ -209,14 +209,14 @@ const PizzaEditorForm = () => {
                         type="checkbox"
                         value="ham"
                         name="meat"
-                    />
-                    {PizzaServData.meat.ham.name} 
+                    /> 
+                    {PizzaServData.meat.ham.name}  
                 </label>
 
             </fieldset> 
             <Link to="/payment-form" onClick={onSubmit}>
-                <button >
-                    send {priceRedux} 
+                <button > 
+                    send {priceRedux}  
                 </button>
             </Link>
         </form>
@@ -224,5 +224,5 @@ const PizzaEditorForm = () => {
 
  
 }
-
-export default PizzaEditorForm 
+ 
+export default PizzaEditorForm  

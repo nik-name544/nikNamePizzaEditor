@@ -44,8 +44,8 @@ export default function  Checkout() {
                             </div>
                         </div>
                         <div className="order-list__item-bot">
-                            <p className="order-list__item-paid">
-                                {FinalTotal  + 180} руб • оплата MC
+                            <p className="order-list__item-paid"> 
+                                {FinalTotal  + 180} руб • оплата MC 
                             </p>
                             <p className="order-list__item-bot-state ">
                                 Повторить заказ

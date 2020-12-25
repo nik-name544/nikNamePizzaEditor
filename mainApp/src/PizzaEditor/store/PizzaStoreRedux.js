@@ -1,3 +1,4 @@
+ 
 import { configureStore, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
  
 
@@ -140,18 +141,32 @@ export const FinalTotalRedux = (values, PizzaServData) => {
     const meatPrice = values.meat.reduce(
         (price, meat) => price + Number(pizzaData.meat[meat].price),
         0
-    );
+    ); 
+
+ 
+ 
     return doughPrice + sizePrice + saucePrice + cheesePrice + vegetablesPrice + meatPrice + 200;
 }
 
 
-
+ 
 export const store = configureStore({ reducer: pizzaLogic.reducer });
  
 store.dispatch(fetchdata());
 
 
-export default function PizzaDataStore() {
+ 
+  
+
+store.subscribe(() => console.log(store.getState()));
+
+
+
+
+
+
+
+function PizzaDataStore() { 
     return [
         {
             dough: {

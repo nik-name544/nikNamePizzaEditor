@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom' 
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch } from "react-redux";
-import { store } from '../PizzaEditor/store/PizzaStoreRedux'
+import { yupResolver } from '@hookform/resolvers/yup'; 
+import { store } from '../PizzaEditor/store/PizzaStoreRedux' 
+import { useDispatch, useSelector } from "react-redux"; 
 
 
 
@@ -64,7 +64,7 @@ function PaymentForm() {
         resolver: yupResolver(schema),
         mode: "onBlur"
     })
-    const values = watch()
+    const values = watch() 
     const dispatch = useDispatch(); 
     const PizzaName = store.getState().toppings 
     let fullAddress = { address: values.address, entrance: values.entrance, floor: values.floor, apartment: values.apartment }
@@ -79,7 +79,7 @@ function PaymentForm() {
     }
 
  
-    const name = PizzaName
+    const name = PizzaName 
     let pizzaItem = name.map((item, i) => {
         return (
             <div key={i} className="order-list__ing">
@@ -100,8 +100,8 @@ function PaymentForm() {
                 <div className="container">
                     <div className="payment-form__pizza-inner">
                         <p className="payment-form__pizza-title">Ленивая Маргарита</p>
-                        <div className="payment-form__pizza-text">{pizzaItem}</div>
-                        <p className="payment-form__pizza-price">{FinalTotal} руб</p> 
+                        <div className="payment-form__pizza-text">{pizzaItem}</div> 
+                        <p className="payment-form__pizza-price">{FinalTotal} руб</p>  
                     </div>
                 </div>
             </section>
@@ -202,8 +202,8 @@ function PaymentForm() {
                 <div className="container">
                     <div className="footer-top">
                         <div className="footer-top__text-inner">
-                            <p className="footer-top__text">Стоимость заказа</p>
-                            <p className="footer-top__price">{FinalTotal} руб</p>
+                            <p className="footer-top__text">Стоимость заказа</p> 
+                            <p className="footer-top__price">{FinalTotal} руб</p> 
                         </div>
                         <div className="footer-top__text-inner">
                             <p className="footer-top__text">Доставка</p>
@@ -212,12 +212,12 @@ function PaymentForm() {
                     </div>
                     <div className="footer-bot">
                         <div className="footer-bot__text-inner">
-                            <p className="footer-bot__text">К оплате</p>
+                            <p className="footer-bot__text">К оплате</p> 
                             <p className="footer-bot__price">{FinalTotal + 180} руб</p>
                         </div>
                         <div className="footer-bot__btn-inner active">
                             <Link to="/registration" className="footer-bot__btn active" onClick={onSubmit}>Оплатить {FinalTotal + 180} руб</Link>
-                        </div>
+                         </div>
                     </div>
                 </div>
             </footer>

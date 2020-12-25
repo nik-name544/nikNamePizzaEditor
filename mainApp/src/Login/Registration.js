@@ -17,18 +17,18 @@ function Registration() {
     const { register, handleSubmit, errors, watch } = useForm({
         resolver: yupResolver(schema),
         mode: "onBlur"
-    })
+    }) 
     const Registered = useSelector(state => state.Registered)
     const dispatch = useDispatch();
 
     const onSubmit = (data) => { 
         dispatch({ type: "pizza/registered", payload: true })
     }; 
- 
+  
     return (
         <div className="auth-form">
             <header className="payment-form__header">
-                <Link to="/pizza-editor-login" className="payment-form__header-link"></Link>
+                <Link to="/" className="payment-form__header-link"></Link>
                 <p className="payment-form__title">Регистрация</p>
             </header>
             <section className="auth-form">
@@ -60,5 +60,5 @@ function Registration() {
             </section>
         </div>
     )
-}
-export default  Registration 
+} 
+export default  Registration  

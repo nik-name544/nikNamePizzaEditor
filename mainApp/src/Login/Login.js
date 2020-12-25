@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom' 
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import {   useDispatch } from 'react-redux';
-import { store } from '../PizzaEditor/store/PizzaStoreRedux'
+import { yupResolver } from '@hookform/resolvers/yup'; 
+import { store } from '../PizzaEditor/store/PizzaStoreRedux' 
+import { useSelector, useDispatch } from 'react-redux'; 
 
 
 const schema = yup.object().shape({
@@ -18,25 +18,25 @@ function Login() {
     const { register, handleSubmit, errors, watch } = useForm({
         resolver: yupResolver(schema),
         mode: "onBlur"
-    })
+    }) 
     const Registered =  store.getState().registered 
     const dispatch = useDispatch();
     const auth = () => {
-        if(Registered ){
+        if(Registered ){ 
             return "/login"
         }else {
             return "/order-list"
         }
     }
 
-    const onSubmit = (data) => {  
-        dispatch({ type: "pizza/registered", payload: true })
+    const onSubmit = (data) => {   
+        dispatch({ type: "pizza/registered", payload: true }) 
     };
  
     return (
         <div className="auth-form">
             <header className="payment-form__header">
-                <Link to="/pizza-editor-login" className="payment-form__header-link"> </Link>
+                <Link to="/" className="payment-form__header-link"> </Link>
                 <p className="payment-form__title">Авторизация</p>
             </header>
             <section className="auth-form">
@@ -62,14 +62,14 @@ function Login() {
                             {/* <input type="password" className="auth-form__input wrong" /> */}
                             <span className="auth-form__wrong wrong">Неправильный пароль</span>
                         </label>
-                        <div className="auth-form__btn-inner active">
-                            <Link  to={auth} className="auth-form__btn  active" onClick={onSubmit}>Войти</Link>
+                        <div className="auth-form__btn-inner active"> 
+                            <Link to={auth} className="auth-form__btn  active" onClick={onSubmit}>Войти</Link> 
                         </div>
                     </form>
                 </div>
             </section>
         </div>
     )
-}
-export default  Login 
+} 
+export default  Login  
 

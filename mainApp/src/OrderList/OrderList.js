@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom' 
+import { Link } from 'react-router-dom'  
 import { store } from '../PizzaEditor/store/PizzaStoreRedux'
 import { useQuery } from "react-query";
 
@@ -35,7 +35,7 @@ export default function OrderList() {
         pizzaName()
     } 
     const FinalTotal = store.getState().total 
-    let pizzaItem = pizzaName() || "name"
+    let pizzaItem = pizzaName() || "name" 
     return (
         <div className="order-list">
             <header className="payment-form__header">
@@ -56,11 +56,13 @@ export default function OrderList() {
                             <div className="order-list__item-text">
                                 {pizzaItem}
                             </div>
-                        </div>
+                        </div> 
                         <div className="order-list__item-bot">
                             <p className="order-list__item-paid">
                                 {FinalTotal} руб • оплата MC *2345
-                        </p>
+                            </p>
+                        </div> 
+                        
                             <p className="order-list__item-bot-state delivered">
                                 Доставляется
                         </p>
@@ -79,11 +81,13 @@ export default function OrderList() {
                             <div className="order-list__item-text">
                                 {pizzaItem}
                             </div>
-                        </div>
+                        </div> 
                         <div className="order-list__item-bot">
                             <p className="order-list__item-paid">
                                 {FinalTotal} руб • оплата MC
-                        </p>
+                            </p>
+                        </div> 
+                        
                             <p className="order-list__item-bot-state ">
                                 Повторить заказ
                         </p>
@@ -102,11 +106,12 @@ export default function OrderList() {
                             <div className="order-list__item-text">
                                 {pizzaItem}
                             </div>
-                        </div>
+                        </div> 
                         <div className="order-list__item-bot">
                             <p className="order-list__item-paid">
                                 {FinalTotal} руб • оплата MC
-                        </p>
+                   </p>
+                        </div>
                             <p className="order-list__item-bot-state ">
                                 Повторить заказ
                         </p>
