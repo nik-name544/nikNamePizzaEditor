@@ -1,35 +1,13 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
-import { observer } from 'mobx-react'
-import PizzaStore from './store/PizzaStore'
-import { FinalTotal } from './store/PizzaStore'
+import { useForm } from 'react-hook-form'; 
 import { Link } from "react-router-dom";
+import {ToppingsNameRedux} from './store/ToppingsNameRedux' 
+import { useDispatch, useSelector } from "react-redux";
+import { FinalTotalRedux } from './store/PizzaStoreRedux';
 
+ 
 
-const ToppingsName = (data) => {
-    const newTopping = []
-    let pizzaData = PizzaStore.pizzaData[0]
-    const doughName = pizzaData.dough[data.dough].name
-    const sizeName = pizzaData.size[data.size].name;
-    const sauceName = pizzaData.sauce[data.sauce].name;
-    const cheeseName = data.cheese.map((name, i) => {
-        return pizzaData.cheese[name].name
-    })
-    const vegetablesName = data.vegetables.map((name, i) => {
-        return pizzaData.vegetables[name].name
-    })
-    const meatName = data.meat.map((name, i) => {
-        return pizzaData.meat[name].name
-    })
-    newTopping.push([doughName], [sizeName], [sauceName], ...cheeseName, ...vegetablesName, ...meatName) 
-    PizzaStore.toppings = [...newTopping]
-}
-
-
-
-
-const PizzaEditorForm = () => {
-    let pizzaData = PizzaStore.pizzaData[0]
+const PizzaEditorForm = () => { 
     const { register, handleSubmit, watch } = useForm({
         defaultValues: {
             size: 'small',
@@ -40,12 +18,16 @@ const PizzaEditorForm = () => {
             meat: [],
         }
     })
-
-    const values = watch()
-    const price = FinalTotal(values); 
-    const onSubmit = (data) => {
-        PizzaStore.FinalTotal = price
-        ToppingsName(values) 
+    const dispatch = useDispatch();
+    const PizzaData = useSelector(state => state.PizzaData);
+    const PizzaName = useSelector(state => state.PizzaName);
+    const FinalTotal = useSelector(state => state.FinalTotal);
+    const values = watch() 
+    const priceRedux = FinalTotalRedux(values);
+    const onSubmit = (data) => { 
+        FinalTotalRedux(values)
+        FinalTotal.total = priceRedux 
+        ToppingsNameRedux({values, PizzaData, PizzaName, dispatch})
     }
 
     return (
@@ -59,7 +41,7 @@ const PizzaEditorForm = () => {
                         value="thin"
                         name="dough"
                     />
-                    {pizzaData.dough.thin.name}
+                    {PizzaData[0].dough.thin.name}
                 </label>
                 <label>
                     <input
@@ -68,7 +50,7 @@ const PizzaEditorForm = () => {
                         value="fluffy"
                         name="dough"
                     />
-                    {pizzaData.dough.fluffy.name}
+                    {PizzaData[0].dough.fluffy.name}
                 </label>
             </fieldset>
             <fieldset>
@@ -80,7 +62,7 @@ const PizzaEditorForm = () => {
                         value="small"
                         name="size"
                     />
-                    {pizzaData.size.small.name}
+                    {PizzaData[0].size.small.name}
                 </label>
                 <label>
                     <input
@@ -89,7 +71,7 @@ const PizzaEditorForm = () => {
                         value="big"
                         name="size"
                     />
-                    {pizzaData.size.big.name}
+                    {PizzaData[0].size.big.name}
                 </label>
 
             </fieldset>
@@ -104,7 +86,7 @@ const PizzaEditorForm = () => {
                         value="tomatoSauce"
                         name="sauce"
                     />
-                    {pizzaData.sauce.tomatoSauce.name}
+                    {PizzaData[0].sauce.tomatoSauce.name}
                 </label>
                 <label>
                     <input
@@ -113,7 +95,7 @@ const PizzaEditorForm = () => {
                         value="whiteSauce"
                         name="sauce"
                     />
-                    {pizzaData.sauce.whiteSauce.name}
+                    {PizzaData[0].sauce.whiteSauce.name}
                 </label>
                 <label>
                     <input
@@ -122,7 +104,7 @@ const PizzaEditorForm = () => {
                         value="spicySauce"
                         name="sauce"
                     />
-                    {pizzaData.sauce.spicySauce.name}
+                    {PizzaData[0].sauce.spicySauce.name}
                 </label>
 
             </fieldset>
@@ -136,7 +118,7 @@ const PizzaEditorForm = () => {
                         value="mozzarella"
                         name="cheese"
                     />
-                    {pizzaData.cheese.mozzarella.name}
+                    {PizzaData[0].cheese.mozzarella.name}
                 </label>
                 <label>
                     <input
@@ -145,7 +127,7 @@ const PizzaEditorForm = () => {
                         value="cheddar"
                         name="cheese"
                     />
-                    {pizzaData.cheese.cheddar.name}
+                    {PizzaData[0].cheese.cheddar.name}
                 </label>
                 <label>
                     <input
@@ -154,7 +136,7 @@ const PizzaEditorForm = () => {
                         value="dorBlue"
                         name="cheese"
                     />
-                    {pizzaData.cheese.dorBlue.name}
+                    {PizzaData[0].cheese.dorBlue.name}
                 </label>
 
             </fieldset>
@@ -168,7 +150,7 @@ const PizzaEditorForm = () => {
                         value="tomato"
                         name="vegetables"
                     />
-                    {pizzaData.vegetables.tomato.name}
+                    {PizzaData[0].vegetables.tomato.name}
                 </label>
                 <label>
                     <input
@@ -177,7 +159,7 @@ const PizzaEditorForm = () => {
                         value="mushrooms"
                         name="vegetables"
                     />
-                    {pizzaData.vegetables.mushrooms.name}
+                    {PizzaData[0].vegetables.mushrooms.name}
                 </label>
                 <label>
                     <input
@@ -186,7 +168,7 @@ const PizzaEditorForm = () => {
                         value="pepper"
                         name="vegetables"
                     />
-                    {pizzaData.vegetables.pepper.name}
+                    {PizzaData[0].vegetables.pepper.name}
                 </label>
 
             </fieldset>
@@ -200,7 +182,7 @@ const PizzaEditorForm = () => {
                         value="bacon"
                         name="meat"
                     />
-                    {pizzaData.meat.bacon.name}
+                    {PizzaData[0].meat.bacon.name}
                 </label>
                 <label>
                     <input
@@ -209,7 +191,7 @@ const PizzaEditorForm = () => {
                         value="pepperoni"
                         name="meat"
                     />
-                    {pizzaData.meat.pepperoni.name}
+                    {PizzaData[0].meat.pepperoni.name}
                 </label>
                 <label>
                     <input
@@ -218,17 +200,17 @@ const PizzaEditorForm = () => {
                         value="ham"
                         name="meat"
                     />
-                    {pizzaData.meat.ham.name}
+                    {PizzaData[0].meat.ham.name}
                 </label>
 
             </fieldset>
             <Link to="/payment-form" onClick={onSubmit}>
                 <button >
-                    send {price}
+                    send {priceRedux } 
                 </button>
             </Link>
         </form>
     )
 }
 
-export default observer(PizzaEditorForm)
+export default  PizzaEditorForm 

@@ -1,11 +1,12 @@
 import React from 'react' 
-import PizzaStore from '../PizzaEditor/store/PizzaStore'
-import { Link } from 'react-router-dom' 
+import { Link } from 'react-router-dom'
+import { useSelector } from "react-redux"; 
 // import '../PizzaEditorStyle.css'
 
-export default function pizzaEditorCheckout() {
-    
-    const name = PizzaStore.toppings 
+export default function  Checkout() { 
+    const PizzaName = useSelector(state => state.PizzaName);
+    const FinalTotal = useSelector(state => state.FinalTotal); 
+    const name = PizzaName.toppings
     let pizzaItem = name.map((item, i) => {
         return (
             <div key={i} className="order-list__ing">
@@ -44,7 +45,7 @@ export default function pizzaEditorCheckout() {
                         </div>
                         <div className="order-list__item-bot">
                             <p className="order-list__item-paid">
-                                {PizzaStore.FinalTotal + 180} руб • оплата MC
+                                {FinalTotal.total + 180} руб • оплата MC
                             </p>
                             <p className="order-list__item-bot-state ">
                                 Повторить заказ

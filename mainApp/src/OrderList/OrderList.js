@@ -1,9 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import PizzaStore from '../PizzaEditor/store/PizzaStore'
+import { Link } from 'react-router-dom' 
+import {   useSelector } from "react-redux";
 
 export default function PizzaEditorOrderList() {
-    const name = PizzaStore.toppings
+    const PizzaName = useSelector(state => state.PizzaName);
+    const FinalTotal = useSelector(state => state.FinalTotal);
+    const name = PizzaName.toppings
     let pizzaItem = name.map((item, i) => {
         return (
             <div key={i} className="order-list__ing">
@@ -36,7 +38,7 @@ export default function PizzaEditorOrderList() {
                         </div>
                         <div class="order-list__item-bot">
                             <p class="order-list__item-paid">
-                            {PizzaStore.FinalTotal} руб • оплата MC *2345
+                            {FinalTotal.total} руб • оплата MC *2345
                         </p>
                             <p class="order-list__item-bot-state delivered">
                                 Доставляется
@@ -59,7 +61,7 @@ export default function PizzaEditorOrderList() {
                         </div>
                         <div class="order-list__item-bot">
                             <p class="order-list__item-paid">
-                            {PizzaStore.FinalTotal} руб • оплата MC
+                            {FinalTotal.total} руб • оплата MC
                         </p>
                             <p class="order-list__item-bot-state ">
                                 Повторить заказ
@@ -82,7 +84,7 @@ export default function PizzaEditorOrderList() {
                         </div>
                         <div class="order-list__item-bot">
                             <p class="order-list__item-paid">
-                            {PizzaStore.FinalTotal} руб • оплата MC
+                            {FinalTotal.total} руб • оплата MC
                         </p>
                             <p class="order-list__item-bot-state ">
                                 Повторить заказ

@@ -1,7 +1,6 @@
 import React from 'react'
 import './App.css';
-import './reset.css' 
-import { observer } from 'mobx-react';
+import './reset.css'  
 import { Link, Route, Switch } from "react-router-dom";
 import Checkout from './Checkout/Checkout';
 import Registration from './Login/Registration';
@@ -10,9 +9,17 @@ import OrderList from './OrderList/OrderList';
 import PaymentForm from './PaymentForm/PaymentForm';
 import PizzaEditorForm from './PizzaEditor/PizzaEditorForm'
 import './PizzaEditorStyle.css' 
-
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+  const Registered = useSelector(state => state.Registered);
+  const auth = () => {
+    if (Registered.registered) {
+      return "/order-list"
+    } else {
+      return "/login"
+    }
+  }
   return (
     <>
       <nav>
@@ -21,7 +28,7 @@ function App() {
           <li><Link to="/checkout">Checkout</Link></li>
           <li><Link to="/registration">Registration</Link></li>
           <li><Link to="/login">Login</Link></li>
-          <li><Link to="/order-list">OrderList</Link></li>
+          <li><Link to={auth}>OrderList</Link></li>
           <li><Link to="/payment-form">PaymentForm</Link></li>
         </ul>
       </nav>
@@ -51,4 +58,4 @@ function App() {
   )
 }
 
-export default (observer(App));
+export default  App 
