@@ -1,0 +1,853 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+body {
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.mainApp {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 100px;
+    align-items: center;
+    /* width: fit-content; */
+    height: 100%;
+    width: 360px;
+}
+
+.block {
+    margin-bottom: 25px;
+}
+
+.submitBtn__inner {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 40px;
+    padding: 12px 16px;
+    background: #FFFFFF;
+    box-shadow: 0px -16px 32px rgba(75, 75, 124, 0.05), 0px 0px 4px rgba(75, 75, 124, 0.1);
+    border: none;
+}
+
+.submitBtn {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 16px;
+    color: #FFFFFF;
+    height: 100%;
+    width: 100%;
+    background: #00A896;
+    border-radius: 16px;
+    border: none;
+}
+
+.cheese__title,
+.vegetables__title,
+.meat__title {
+    color: #4B4B7C;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 15px;
+}
+
+.mozzarella__title,
+.cheddar__title,
+.dor-blue__title,
+.tomato__title,
+.mushrooms__title,
+.pepper__title,
+.bacon__title,
+.pepperoni__title,
+.ham__title {
+    padding: 50px 15px 4px;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #1F1F33;
+    border-radius: 12px;
+    position: relative;
+}
+
+.mozzarella__title::before,
+.cheddar__title::before,
+.dor-blue__title::before,
+.tomato__title::before,
+.mushrooms__title::before,
+.pepper__title::before,
+.bacon__title::before,
+.pepperoni__title::before,
+.ham__title::before {
+    content: "";
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    background-repeat: no-repeat;
+    top: -20px;
+}
+
+.mozzarella__title::before {
+
+    background-image: url(./img/mozarella.png);
+}
+
+
+.cheddar__title::before {
+
+    background-image: url(./img/cheddar.png);
+}
+
+.dor-blue__title::before {
+
+    background-image: url(./img/dor-blue.png);
+}
+
+
+.tomato__title::before {
+    background-image: url(./img/tomato.png);
+}
+
+.mushrooms__title::before {
+    background-image: url(./img/mashrooms.png);
+}
+
+.pepper__title::before {
+    background-image: url(./img/pepper.png);
+}
+
+
+.bacon__title::before {
+    background-image: url(./img/bacon.png);
+}
+
+.pepperoni__title::before {
+    background-image: url(./img/pepperoni.png);
+}
+
+.ham__title::before {
+    background-image: url(./img/ham.png);
+}
+
+
+.mozzarella__price,
+.cheddar__price,
+.dor-blue__price,
+.tomato__price,
+.mushrooms__price,
+.pepper__price,
+.bacon__price,
+.pepperoni__price,
+.ham__price {
+    color: #1F1F33;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-right: 30px;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.mozzarella__group,
+.cheddar__group,
+.dor-blue__group,
+.tomato__group,
+.mushrooms__group,
+.pepper__group,
+.ham__group,
+.pepperoni__group,
+.bacon__group {
+    display: flex;
+    padding-left: 15px;
+}
+
+.cheese__group,
+.vegetables__group,
+.meat__group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.mozzarella__inner,
+.cheddar__inner,
+.dor-blue__inner,
+.tomato__inner,
+.mushrooms__inner,
+.pepper__inner,
+.bacon__inner,
+.pepperoni__inner,
+.ham__inner {
+    background: #FFFFFF;
+    box-shadow: 0px 8px 16px rgba(75, 75, 124, 0.05);
+    border-radius: 12px;
+}
+
+
+
+
+#dough-fluffy__text,
+#dough-thin__text,
+#size-small__text,
+#size-big__text,
+#tomato-sauce__text,
+#white-sauce__text,
+#spicy-sauce__text {
+    /* width: 100px;
+    height: 24px; */
+    vertical-align: -6.5px;
+    border-radius: 12px;
+    outline: none;
+    transition: 0.2s;
+    padding: 4px 17px;
+    /* padding: 4px 26px; */
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #1F1F33;
+    /* position: relative; */
+    /* position: absolute; */
+}
+
+
+
+.dough-fluffy__box,
+.dough-thin__box,
+.size-big__box,
+.size-small__box,
+.tomato-sauce__box,
+.white-sauce__box,
+.spicy-sauce__box {
+    display: none;
+}
+
+label input[type="radio"]:checked+#dough-fluffy__text,
+label input[type="radio"]:checked+#dough-thin__text,
+label input[type="radio"]:checked+#size-small__text,
+label input[type="radio"]:checked+#size-big__text,
+label input[type="radio"]:checked+#tomato-sauce__text,
+label input[type="radio"]:checked+#white-sauce__text,
+label input[type="radio"]:checked+#spicy-sauce__text {
+    background: #FFFFFF;
+    box-shadow: 0px 8px 16px rgba(75, 75, 124, 0.05);
+}
+
+.dough,
+.size {
+    /* width: 327px; */
+    /* background: #F9F9FB;
+    border-radius: 12px;
+    padding: 2px; */
+    /* height: 30vh; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.dough {
+    margin-left: 10px;
+}
+
+.size {
+    margin-right: 10px;
+}
+
+.size__inner,
+.dough__inner {
+    width: fit-content;
+    background: #F9F9FB;
+    padding: 6px 6px 12px;
+    border-radius: 12px;
+}
+
+.sauce__inner {
+    width: 100%;
+    background: #F9F9FB;
+    padding: 6px 6px 12px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.size-dough__inner {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.dough__title,
+.size__title,
+.sauce__title {
+    color: #4B4B7C;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 15px;
+}
+
+.submit__btn-wrapper {
+    background: #FFFFFF;
+    box-shadow: 0px -16px 32px rgba(75, 75, 124, 0.05), 0px 0px 4px rgba(75, 75, 124, 0.1);
+    padding: 12px 16px;
+
+}
+
+.submit__btn-inner {
+    background: #00A896;
+    border-radius: 16px;
+    padding: 12px;
+    text-align: center;
+}
+
+.submit__btn {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.container {
+    padding: 0 16px;
+}
+
+.payment-form,
+.auth-form,
+.order-list,
+.order {
+    background: #F9F9FB;
+    width: 360px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.order {
+    background: #fff;
+}
+
+.payment-form__header {
+    display: flex;
+    position: relative;
+}
+
+.payment-form__header-link {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 5px;
+    background-repeat: no-repeat;
+    top: 11px;
+    background-image: url(./img/Button-Iconic.png);
+}
+
+.payment-form__title {
+    font-family: Rounded Mplus 1c;
+    /* font-family: 'M PLUS Rounded 1c' ; */
+    font-style: normal;
+    font-weight: 800;
+    color: #1F1F33;
+    font-size: 20px;
+    padding-left: 54px;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    padding-top: 15px;
+}
+
+.payment-form__pizza {
+    margin: 0 auto;
+    background: #FFFFFF;
+    box-shadow: 0px 8px 16px rgba(75, 75, 124, 0.05);
+    border-radius: 16px;
+    padding: 12px 16px;
+    margin: 16px 16px 25px;
+}
+
+.payment-form__pizza-title {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #1F1F33;
+    padding-bottom: 12px;
+}
+
+.payment-form__pizza-text {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: normal;
+    border-bottom: 1px dashed #E1E1ED;
+    font-size: 12px;
+    color: #4B4B7C;
+    padding-bottom: 6px;
+}
+
+.payment-form__pizza-price {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.payment-form__address-text {
+    padding-bottom: 20px;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #1F1F33;
+}
+
+.payment-form__address-input-big {
+    /* width: calc(360px - 39px); */
+    max-width: 100%;
+    width: 328px;
+    padding: 9px;
+    border: 2px solid #E1E1ED;
+    border-radius: 6px;
+}
+
+.payment-form__address-input-name {
+    text-transform: uppercase;
+    color: #1F1F33;
+}
+
+.payment-form__address-input-big::placeholder {
+    /* font-family: Rubik; */
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    color: #1F1F33;
+    opacity: 0.5;
+}
+
+.payment-form__address-inner {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    margin-bottom: 23px;
+}
+
+.payment-form__address-input {
+    width: 105px;
+    margin-top: 8px;
+    background: #FFFFFF;
+    border: 2px solid #E1E1ED;
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.payment-form__address-input-label {
+    display: flex;
+    flex-direction: column;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    color: #4B4B7C;
+}
+
+.payment-form__address-small-inner {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+/* .payment-form input {
+    text-transform: uppercase;
+    color: #1F1F33;
+} */
+
+.payment-form__address-input-small {
+    background: #FFFFFF;
+    border: 2px solid #E1E1ED;
+    border-radius: 6px;
+    padding: 12px;
+    width: 64px;
+}
+
+.payment-form__address-input-small::placeholder {
+
+    color: #1F1F33;
+    opacity: 0.5;
+    /* font-family: Rubik; */
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.payment-form__address-input-small.payment-form__address-input-date {
+    width: 105px;
+}
+
+.payment-form__address-bot-text {
+    padding-top: 45px;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #4B4B7C;
+}
+
+.footer {
+    background-color: #fff;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px 0px;
+    box-shadow: 0px -16px 32px rgba(75, 75, 124, 0.05), 0px 0px 4px rgba(75, 75, 124, 0.1);
+}
+
+.footer-top__text-inner,
+.footer-bot__text-inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-top {
+    border-bottom: 1px dashed #E1E1ED;
+}
+
+.footer-bot {
+    padding-top: 8px;
+}
+
+.footer-bot__btn {
+    text-decoration: none;
+}
+
+.footer-top__text {
+    padding-bottom: 8px;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4B4B7C;
+}
+
+.footer-top__price {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4B4B7C;
+}
+
+.footer-bot__text {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4B4B7C;
+}
+
+.footer-bot__price {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4B4B7C;
+}
+
+.footer-bot__btn-inner {
+    background: #F9F9FB;
+    border-radius: 16px;
+    padding: 12px 16px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.footer-bot__btn {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+    color: #8181B1;
+    opacity: 0.5;
+}
+
+.footer-bot__btn-inner.active {
+    background: #00A896;
+}
+
+.footer-bot__btn.active {
+    color: #ffffff;
+    opacity: 1;
+}
+
+.auth-form {
+    padding-bottom: 30vh;
+}
+
+.auth-form__form {
+    background: #FFFFFF;
+    box-shadow: 0px 8px 16px rgba(75, 75, 124, 0.05);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+
+}
+
+.auth-form__label {
+    display: flex;
+    flex-direction: column;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #4B4B7C;
+
+}
+
+.auth-form__input {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 12px;
+    background: #FFFFFF;
+    border: 2px solid #E1E1ED;
+    border-radius: 6px;
+}
+
+.auth-form__input.wrong {
+    border: 2px solid #E3170A;
+    color: #e3170a;
+    outline: #e3170a;
+}
+
+.auth-form__btn-inner.active {
+    background: #00A896;
+}
+
+.auth-form__btn-inner {
+    background: #F9F9FB;
+    border-radius: 16px;
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    text-align: center;
+}
+
+.auth-form__btn {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 16px;
+    color: #8181B1;
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+.auth-form__btn.active {
+    color: #ffffff;
+    opacity: 1;
+}
+
+.auth-form__wrong {
+    margin-top: -10px;
+    display: none;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.auth-form__wrong.wrong {
+    display: block;
+    color: #E3170A;
+}
+
+.order-list__wrapper {
+    margin-top: 20px;
+    padding-bottom: 30vh;
+}
+
+.order-list__item {
+    background: #FFFFFF;
+    box-shadow: 0px 8px 16px rgba(75, 75, 124, 0.05);
+    border-radius: 16px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+}
+
+.order-list__item-top {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.order-list__item-num {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    color: #4B4B7C;
+    padding-right: 15px;
+}
+
+.order-list__item-state {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    color: #8181B1;
+}
+
+.order-list__item-title {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #1F1F33;
+    padding-bottom: 10px;
+}
+
+.order-list__item-text {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4B4B7C;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #E1E1ED;
+    display: flex;
+}
+
+.order-list__ing {
+    padding-right: 10px;
+    list-style: none;
+}
+
+.order-list__item-bot {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0 5px;
+}
+
+.order-list__item-paid {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    color: #4B4B7C;
+}
+
+.order-list__item-bot-state.delivered {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #F3752B;
+    position: relative;
+    padding-left: 20px;
+
+}
+
+.order-list__item-bot-state.delivered::before,
+.order-list__item-bot-state::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    top: 2px;
+    background-repeat: no-repeat;
+}
+
+.order-list__item-bot-state.delivered::before {
+    background-image: url(./img/Exclude.png);
+}
+
+
+.order-list__item-bot-state {
+    color: #009485;
+    position: relative;
+    padding-left: 20px;
+}
+
+.order-list__item-bot-state::before {
+    background-image: url(./img/Vector.png);
+}
+
+.order__close-btn {
+    background-image: url(./img/icn_error.png);
+    width: 16px;
+    height: 16px;
+    margin-left: auto;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.order__ico {
+    margin: 35px auto 20px;
+    width: 67px;
+    height: 67px;
+    background-image: url(./img/ok-Icon.png);
+}
+
+.order__ico.wrong {
+    width: 67px;
+    height: 67px;
+    background-image: url(./img/wrong-Icon.png);
+}
+
+.order__title {
+    text-align: center;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    color: #1F1F33;
+    padding-bottom: 10px;
+}
+
+.order__text {
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    text-align: center;
+    color: #4B4B7C;
+    padding-bottom: 30px;
+    margin: 0 50px;
+}
+
+.order__btn.wrong {
+    background: #00A896;
+    border-radius: 16px;
+    margin: 0 16px;
+    padding: 12px;
+    text-align: center;
+}
+
+.order__btn-text {
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Rounded Mplus 1c;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+}
